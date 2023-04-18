@@ -1,0 +1,14 @@
+function [NbIterations,sol] = GradientDescent(funct,Tolerence,alpha,varargin)
+n=size(symvar(funct),2);
+v(1:n)=varargin{:};
+P=gradient(funct);
+NbIterations=0;
+u=sym2cell(symvar(funct));
+    while(norm(subs(P(1:n),u,{v}))>Tolerence)
+        for i=1:n
+    v(i)=v(i)-alpha*subs(P(i),u,{v});
+        end
+    NbIterations=NbIterations+1;
+    end
+sol=vpa(v);
+end
